@@ -1,0 +1,27 @@
+body {
+  background-color: white;
+}
+#main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#game-conatiner {
+ 
+}
+button {
+  padding: 10px;
+  margin: 20px;
+  border-radius: 7px;
+  box-shadow: 0px 5px 5px black;
+}
+#fifths-pic {
+  max-width : 400px;
+}
+textarea {
+  margin-left:120px;
+  width: 400px;
+  height: 400px;
+}

@@ -7,3 +7,4 @@ coverage/
 .vscode/
 ./client/images
 build/
+.babelrc

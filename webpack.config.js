@@ -1,12 +1,25 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+
 
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: 'development',
   entry : './client/index.js',
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
+    publicPath: '/',
+    clean: true,
   },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Circle of Fifths Game',
+      template: './index.html',
+    }),
+  ],
   
   module: {
     rules: [
@@ -16,20 +29,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            //presets: ['@babel/preset-env', '@babel/preset-react']
           }
         }
       },
       {
-        test: /\.s?css/,
-        use: [
-          // Creates `style` nodes from JS strings
-          "style-loader",
-          // Translates CSS into CommonJS
-          "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
-        ],
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
     ]
   },
