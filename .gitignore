@@ -8,4 +8,4 @@ coverage/
 ./client/images
 build/
 .babelrc
-./sounds
+sounds/
