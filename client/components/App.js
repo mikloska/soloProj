@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Board from "./Board.jsx";
 
 
+
 class App extends Component {
   constructor() {
     super();
@@ -15,22 +16,16 @@ class App extends Component {
     
    return (
       <div id = 'main-container'>
+        <div id = 'header'><h1 id = 'header-text'>Circle of Fifths</h1></div>
+        {/* <img src = './images/palatkaiak.jpg' usemap="#game-board" id = "fifths-pic" className = 'palatkaiak' /> */}
+                   
+        <Board/> 
+  
+     
         <div>
-          <div id='game-container'>
-          {/* <div id = "buttons"> */}
-          {/* <button id = 'start'>Start Game</button> */}
-            {/* <button id = 'fifths' >Circle of Fifths</button>
-            <button id = 'flats-and-sharps'>Flats and Sharps</button>
-            <button>Chords</button> */}
-          {/* </div> */}
- 
-            <Board/> 
-          </div>
-        </div>
-        <div>
-          <textarea>
+          {/* <h1>
             Top Scores:
-          </textarea>
+          </h1> */}
         </div>               
       </div>
       

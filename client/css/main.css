@@ -1,40 +1,200 @@
+/* html { 
+  background: url(./palatkaiak.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+#header {
+  background-color: blue;
+  height: 70px;
+  border-bottom: 20px;
+  text-align: center;
+
+}
+#header-text {
+  padding-top: 15px;;
+  color: white;
+  max-height: 100%;
+  margin:0;
+  top:-10px;
+  font-family:monospace;
+}
 body {
   background-color: white;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
-#main-container {
-  height: 100vh;
-  display: flex;
+.palatkaiak {
+  
+  width: 100vw;
+  /* z-index: 1; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/* #main-container {
+  flex-wrap: wrap;
+  display: flex; 
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+} */
+#main-container{
+  display: flex;
+  flex-direction: column;
 }
-#game-conatiner {
- 
+#game-container {
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+
+  margin: auto;
+
+
 }
+.circles  {
+  flex-grow: 1;
+  background-color: rgb(114, 99, 87);
+  height: 50px;;
+  width: 50px;
+  position: absolute; border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+  text-align: center;
+}
+
+#CMajor {
+  transform: rotate(270deg) translate(300px);
+}
+#GMajor {
+  transform: rotate(300deg) translate(300px);
+}
+#DMajor {
+  transform: rotate(330deg) translate(300px);
+}
+#AMajor {
+  transform: rotate(360deg) translate(300px);
+}
+#EMajor {
+  transform: rotate(30deg) translate(300px);
+}
+#HMajor {
+  transform: rotate(60deg) translate(300px);
+}
+#FSharpMajor {
+  transform: rotate(90deg) translate(300px);
+}
+#CSharpMajor {
+  transform: rotate(120deg) translate(300px);
+}
+#AFlatMajor {
+  transform: rotate(150deg) translate(300px);
+}
+#EFlatMajor {
+  transform: rotate(180deg) translate(300px);
+}
+#BMajor {
+  transform: rotate(210deg) translate(300px);
+}
+#FMajor {
+  transform: rotate(240deg) translate(300px);
+}
+
+
+#aMinor {
+  transform: rotate(270deg) translate(200px);
+}
+#eMinor {
+  transform: rotate(300deg) translate(200px);
+}
+#hMinor {
+  transform: rotate(330deg) translate(200px);
+}
+#fSharpMinor {
+  transform: rotate(360deg) translate(200px);
+}
+#cSharpMinor {
+  transform: rotate(30deg) translate(200px);
+}
+#aFlatMinor {
+  transform: rotate(60deg) translate(200px);
+}
+#eFlatMinor {
+  transform: rotate(90deg) translate(200px);
+}
+#bMinor {
+  transform: rotate(120deg) translate(200px);
+}
+#fMinor {
+  transform: rotate(150deg) translate(200px);
+}
+#cMinor {
+  transform: rotate(180deg) translate(200px);
+}
+#gMinor {
+  transform: rotate(210deg) translate(200px);
+}
+#dMinor {
+  transform: rotate(240deg) translate(200px);
+}
+#note-prompt {
+  font-size: 53px;
+  background-color: teal;
+  height: 70px;;
+  width: 70px;
+  position: absolute; border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+  transform: rotate(0deg) translate(-10px);
+  text-align: center;
+  
+}
+
+
 button {
   padding: 10px;
   margin: 20px;
   border-radius: 7px;
   box-shadow: 0px 5px 5px black;
 }
-#fifths-pic {
+/* #fifths-pic {
   max-width : 400px;
-}
-#F {
-  position: absolute;
-  left: 343px;
-  bottom: 412px;
-  z-index: 1;
+} */
+/* .circles {
   height: 50px;
   width: 50px;
-  background-color: #bbb;
+  background-color: rgb(187, 187, 187);
   border-radius: 50%;
   /* display: inline-block; */
-}
+/* } */ 
 F:hover {
   background-color: yellow;
 }
+/* #FMajor, #FMajorSharp, #aMinor, #eFlatMinor{
+  /* margin: auto; */
+
+/* #BMajor, #EFlatMajor, #AFlatMajor {
+  float : left; 
+}
+
+#DMajor, #AMajor, #EMajor {
+  float: right;
+}
+
+#FMajor {
+  margin-left: 50%;
+  border-top: 300px;
+} */
+
 textarea {
+  
   margin-left:120px;
   width: 400px;
   height: 400px;
