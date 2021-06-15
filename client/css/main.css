@@ -1,12 +1,5 @@
-/* html { 
-  background: url(./palatkaiak.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-} */
 #header {
-  background-color: blue;
+  background-color:rgb(38, 70, 83);
   height: 70px;
   border-bottom: 20px;
   text-align: center;
@@ -26,22 +19,8 @@ body {
   margin: 0;
   padding: 0;
 }
-.palatkaiak {
-  
-  width: 100vw;
-  /* z-index: 1; */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-/* #main-container {
-  flex-wrap: wrap;
-  display: flex; 
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-} */
+
+
 #main-container{
   display: flex;
   flex-direction: column;
@@ -56,142 +35,176 @@ body {
 
 }
 .circles  {
-  flex-grow: 1;
-  background-color: rgb(114, 99, 87);
+   
   height: 50px;;
   width: 50px;
-  position: absolute; border-radius: 50%;
+  position: absolute; 
+  border-radius: 50%;
   left: 50%;
   top: 50%;
   margin-left: -25px;
   margin-top: -25px;
   text-align: center;
+  font-family:monospace;
+  font-size: 40px;
+  
+}
+#circle-text{
+  color: white;
+  padding-bottom: 2px;
+}
+#CMajor {
+  background-color: rgb(42,157,143);
+  transform: rotate(270deg) translate(300px);
+  opacity:1;
+  transition: opacity 230ms;
+
+
+}
+#CMajor:hover{
+  
+  opacity:0
 }
 
-#CMajor {
-  transform: rotate(270deg) translate(300px);
-}
+
+
+
+
 #GMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(300deg) translate(300px);
 }
 #DMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(330deg) translate(300px);
 }
 #AMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(360deg) translate(300px);
 }
 #EMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(30deg) translate(300px);
 }
 #HMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(60deg) translate(300px);
 }
 #FSharpMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(90deg) translate(300px);
 }
 #CSharpMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(120deg) translate(300px);
 }
 #AFlatMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(150deg) translate(300px);
 }
 #EFlatMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(180deg) translate(300px);
 }
 #BMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(210deg) translate(300px);
 }
 #FMajor {
+  background-color: rgb(42,157,143);
   transform: rotate(240deg) translate(300px);
 }
 
 
 #aMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(270deg) translate(200px);
 }
 #eMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(300deg) translate(200px);
 }
 #hMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(330deg) translate(200px);
 }
 #fSharpMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(360deg) translate(200px);
 }
 #cSharpMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(30deg) translate(200px);
 }
 #aFlatMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(60deg) translate(200px);
 }
 #eFlatMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(90deg) translate(200px);
 }
 #bMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(120deg) translate(200px);
 }
 #fMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(150deg) translate(200px);
 }
 #cMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(180deg) translate(200px);
 }
 #gMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(210deg) translate(200px);
 }
 #dMinor {
+  background-color: rgb(231,111,81);
   transform: rotate(240deg) translate(200px);
 }
 #note-prompt {
-  font-size: 53px;
-  background-color: teal;
-  height: 70px;;
-  width: 70px;
-  position: absolute; border-radius: 50%;
-  left: 50%;
-  top: 50%;
+  color: white;
+  font-size: 100px;
+  font-family: monospace;
+  background-color: rgb(38,70,83);
+  height: 100px;
+  width: 100px;
+  position: absolute; 
+  border-radius: 50%;
+  left: 49%;
+  top: 47%;
   margin-left: -25px;
   margin-top: -25px;
+
   transform: rotate(0deg) translate(-10px);
   text-align: center;
   
 }
+#note-prompt-div{
+  top:-10%;
+  position: relative;
+}
 
+#score-and-remaining{
+  -webkit-box-shadow: 3px 3px 5px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    3px 3px 5px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         3px 3px 5px 3px #ccc;
+  width: 300px;
+  height: 200px;
+  margin-left: 50px;
+  position: fixed;
+  top: 150px;
+  left: 0;
 
-button {
+}
+.score-remaining-text{
+  font-size:25px;
   padding: 10px;
-  margin: 20px;
-  border-radius: 7px;
-  box-shadow: 0px 5px 5px black;
-}
-/* #fifths-pic {
-  max-width : 400px;
-} */
-/* .circles {
-  height: 50px;
-  width: 50px;
-  background-color: rgb(187, 187, 187);
-  border-radius: 50%;
-  /* display: inline-block; */
-/* } */ 
-F:hover {
-  background-color: yellow;
-}
-/* #FMajor, #FMajorSharp, #aMinor, #eFlatMinor{
-  /* margin: auto; */
-
-/* #BMajor, #EFlatMajor, #AFlatMajor {
-  float : left; 
+  font-family: monospace;
 }
 
-#DMajor, #AMajor, #EMajor {
-  float: right;
-}
-
-#FMajor {
-  margin-left: 50%;
-  border-top: 300px;
-} */
 
 textarea {
   

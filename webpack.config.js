@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry : './client/index.js',
+  entry : ['babel-polyfill','./client/index.js'],
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -29,7 +29,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            //presets: ['@babel/preset-env', '@babel/preset-react']
+            //presets: ['@babel/preset-env', '@babel/preset-react'] ---moved to .babelrc
           }
         }
       },
