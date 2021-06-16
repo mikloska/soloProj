@@ -38,7 +38,11 @@ const Board =()=>{
     
     
     if(noteObj[payload].note === note){
-      noteUpdate(noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]].note)
+      let noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
+      while(noteToUpdate.clicked === true){
+        noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
+      }
+      noteUpdate(noteToUpdate.note)
       noteObjUpdate(oldBoard => ({
         ...oldBoard,
         [payload]: {...oldBoard[payload], clicked: true}, 
@@ -109,6 +113,7 @@ const Board =()=>{
       <div id = 'top-scores'>
         <div id = 'top-scores-text'>Top Scores: </div>
       </div>
+      <button>Randomize</button>
     </div>
   );
 

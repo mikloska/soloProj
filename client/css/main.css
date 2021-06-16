@@ -98,6 +98,9 @@ body {
 #CMajor.hover{
   
 }
+
+
+
 #GMajor {
   background-color: rgb(42,157,143);
   transform: rotate(300deg) translate(300px);
