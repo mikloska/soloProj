@@ -89,6 +89,7 @@ const Board =()=>{
           key = {i}
           handleOnClick = {handleOnClick}
           id = {noteKeys[i]}
+          className = {`major ${isRandom? deg[func()] : deg[i]}`}
           text = {noteObj[noteKeys[i]].note}
         >
 
@@ -96,6 +97,66 @@ const Board =()=>{
   }
 
 
+// Notes start
+  
+const state1 = {
+  majorsObj : [
+    {FMajor:{clicked:false, note:'F', chord: 'fac'},CMajor:{clicked:false, note:'C', chord: 'ceg'}},
+    {GMajor:{clicked:false,note:'G',chord:'ghd'},DMajor:{clicked:false,note:'D',chord:'df#a'}},
+    {AMajor:{clicked:false,note:'A',chord:'ac#e'},EMajor:{clicked:false,note:'E',chord:'eg#h'}},
+    {HMajor:{clicked:false,note:'H',chord:'hf#d#'},FSharpMajor:{clicked:false,note:'F#',chord:'f#bc#'}},
+    {CSharpMajor:{clicked:false,note:'C#',chord:'c#fg#'},AFlatMajor:{clicked:false,note:'A♭',chord:'abceb'}},
+    {EFlatMajor:{clicked:false,note:'E♭',chord:'ebgb'},BMajor:{clicked:false,note:'B',chord:'bdf'}}
+  ],
+  miniorsObj : [
+    {fMinor:{clicked:false, note:'f',chord:'fg#c'},cMinor:{clicked:false, note:'c',chord:'cebg'}},
+    {gMinor:{clicked:false, note:'g',chord:'gbd'},dMinor:{clicked:false, note:'d',chord:'dfa'}},
+    {aMinor:{clicked:false, note:'a',chord:'ace'},eMinor:{clicked:false, note:'e',chord:'egd'}},
+    {hMinor:{clicked:false, note:'h',chord:'hdf#'},fSharpMinor:{clicked:false, note:'f#',chord:'f#ac#'}},
+    {cSharpMinor:{clicked:false, note:'c#',chord:'c#eg#'},aFlatMinor:{clicked:false, note:'a♭',chord:'abheb'}},
+    {eFlatMinor:{clicked:false, note:'e♭',chord:'ebf#b'},bMinor:{clicked:false, note:'b',chord:'bc#f'}}
+  ]
+}
+
+//randomizing array posistions
+const func = (i, randoNum) =>i+randoNum > 12? Math.abs(i - randoNum) : i + randoNum;
+
+const deg = [
+  'deg0',
+  'deg30',
+  // fill with deg css classes
+]
+
+  for(let i = 0; i< 12; i++){
+    circle.push(
+        <NoteCircle 
+ 
+          clicked = {majorsObj[i].clicked}
+          key = {majors[i].chord} // defenately don't use i
+          handleOnClick = {handleOnClick}
+          id = {majors[i].chord} // only for you sound thing
+          className = {`major ${deg[func]}`}
+          text = {majors[i].note}
+        >
+
+        </NoteCircle>)
+        circle.push(
+          <NoteCircle 
+   
+            clicked = {miniorsObj[noteKeys[i]].clicked}
+            key = {miniors[i].chord}
+            handleOnClick = {handleOnClick}
+            id = {miniors[i].chord}
+            className = {`minior ${deg[func]}`}
+            text = {minors[i].note}
+          >
+  
+          </NoteCircle>)
+  }
+
+  // update sound with new id values
+ 
+  // notes end
 
   return(
     <div>

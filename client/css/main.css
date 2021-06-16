@@ -99,6 +99,38 @@ body {
   
 }
 
+.major {
+  background-color: rgb(42,157,143);
+  transform: translate(300px)
+}
+
+.minor {
+  background-color: rgb(231,111,81);
+  transform: translate(200px)
+}
+
+.deg30 {
+  transform: rotate(30deg)
+}
+
+.deg60 {
+  transform: rotate(60deg)
+}
+.deg90 {
+  transform: rotate(90deg)
+}
+.deg120 {
+  transform: rotate(120deg)
+}
+.deg150 {
+  transform: rotate(150deg)
+}
+.deg180 {
+  transform: rotate(180deg)
+}
+
+
+
 
 
 #GMajor {
