@@ -23,9 +23,7 @@ class App extends Component {
   
      
         <div>
-          {/* <h1>
-            Top Scores:
-          </h1> */}
+  
         </div>               
       </div>
       

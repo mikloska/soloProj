@@ -1,9 +1,11 @@
 import React, { Component, useState, useEffect } from 'react';
 import {render} from 'react-dom';
 import NoteCircle from "./NoteCircle.jsx";
+import Modal from "./Modal.jsx";
+
 //import '../.././sounds'
-import soundfile from '../../sounds/A.m4a'; 
-import {motion} from 'framer-motion'
+
+
 
 const Board =()=>{
   const [noteObj, noteObjUpdate] = useState({
@@ -25,31 +27,24 @@ const Board =()=>{
     'F','C','G','D','A','E','H','F#','C#','A♭','E♭','B',
     'f','c','g','d','a','e','h','f#','c#','a♭','e♭','b'
   ]
+
   const noteKeys = Object.keys(noteObj)
-  
+  //const [circleClass, setCircleClass] = useState('circles')
   const [score, scoreUpdate] = useState(0) //() => '0');
   const [remaining, remainingUpdate] = useState(5) //() => '0');
   const [note, noteUpdate] = useState(noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]].note)  //noteArray[Math.floor(Math.random()*noteArray.length)]
 
   function handleOnClick(payload) {
-    //console.log(payload);
     
-    // noteObjUpdate(previous => ({
-      
-    //   ...previous,
-    //   [payload] : {...previous.payload, clicked: true}
-      
-    // }))
-    // if(noteObj.payload.clicked != true){
-
-    //   noteUpdate(noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]].note);
-    // }
-    // console.log(noteObj)
-    //const sound = new Audio
-
+    
     if(noteObj[payload].note === note){
-      
-      
+      noteUpdate(noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]].note)
+      noteObjUpdate(oldBoard => ({
+        ...oldBoard,
+        [payload]: {...oldBoard[payload], clicked: true}, 
+      }))
+
+      console.log(noteObj)
       
       const chordPrompt = prompt("Great job! Now please enter the chord! (enter 'b' for flats and '#' for sharps)")
       if(chordPrompt === noteObj[payload].chord){
@@ -84,7 +79,8 @@ const Board =()=>{
   for(let i = 0; i< noteKeys.length; i++){
     circle.push(
         <NoteCircle 
-         
+ 
+          clicked = {noteObj[noteKeys[i]].clicked}
           key = {i}
           handleOnClick = {handleOnClick}
           id = {noteKeys[i]}
@@ -100,19 +96,17 @@ const Board =()=>{
     <div>
       <div id='game-container'>
             {circle}
-          {/* <NoteCircle handleOnClick = {handleOnClick} /> */}
-          
-          {/* <img src = './images/fifths.jpg' usemap="#game-board" id = "fifths-pic" /> */}
-            {/* <map name="game-board">
-              <area shape="rect" id = "F" coords="1112,353,1310,548" onClick = {handleOnClick} href="computer.htm" alt="Sun"/>
-            </map> */}
+
         <div id = 'note-prompt'  ><div id = 'note-prompt-div'>{note}</div></div>
 
       </div>
       
       <div id = 'score-and-remaining'>
-        <div className = 'score-remaining-text'>Score: {score}</div>
-        <div className = 'score-remaining-text'>Remaining Tries: {remaining}</div>
+        <div id = 'score-remaining-text'>Score: {score}</div>
+        <div id = 'score-remaining-text'>Remaining Tries: {remaining}</div>
+      </div>
+      <div id = 'top-scores'>
+        <div id = 'top-scores-text'>Top Scores: </div>
       </div>
     </div>
   );
