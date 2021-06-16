@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import {render} from 'react-dom';
 import NoteCircle from "./NoteCircle.jsx";
-import Modal from "./Modal.jsx";
+
 
 //import '../.././sounds'
 
@@ -63,10 +63,11 @@ const Board =()=>{
 
   }
   useEffect(()=> {
+    
     //console.log(currentPlayer)
     if(remaining < 1){
       console.log(noteObj)
-      let newGame = confirm('Don/t quit your day job! Play again?');
+      let newGame = confirm('Don\'t quit your day job! Play again?');
       if (newGame === true){
         //reload the page / restart game
         window.location.reload();

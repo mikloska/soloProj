@@ -43,11 +43,11 @@ module.exports = {
         type: 'asset/resource',
       },
       {
-        test: /\.mp3$/,
+        test: /\.m4a$/,
         loader: 'file-loader',
-        // query: {
-        //   name: 'static/media/[name].[hash:8].[ext]'
-        // }
+        options: {
+          name: 'sounds/[name].[ext]'
+        }
       },
     ]
   },
