@@ -113,7 +113,7 @@ const Board =()=>{
       <div id = 'top-scores'>
         <div id = 'top-scores-text'>Top Scores: </div>
       </div>
-      <button>Randomize</button>
+      {/* <button>Randomize</button> */}
     </div>
   );
 
