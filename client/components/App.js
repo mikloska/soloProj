@@ -47,7 +47,7 @@ class App extends Component {
    return (
      
       <div id = 'main-container' >
-        <div id = 'header' ><h1 id = 'header-text'>Circle of Fifths</h1></div>
+        <div id = 'header' ><h1 id = 'header-text'>folkFifths</h1></div>
         {/* <img src = './images/palatkaiak.jpg' usemap="#game-board" id = "fifths-pic" className = 'palatkaiak' /> */}
         
                    

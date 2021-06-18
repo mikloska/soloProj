@@ -33,10 +33,11 @@ const Board =()=>{
   const [score, scoreUpdate] = useState(0) //() => '0');
   const [remaining, remainingUpdate] = useState(5) //() => '0');
   const [note, noteUpdate] = useState(noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]].note)  //noteArray[Math.floor(Math.random()*noteArray.length)]
+  const bad = new Audio('https://solosounds.s3.us-east-2.amazonaws.com/Bad.m4a')
 
   function handleOnClick(payload) {
     
-    
+    if(noteObj[payload].note !== note) bad.play()
     if(noteObj[payload].note === note){
       let noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
       while(noteToUpdate.clicked === true){
