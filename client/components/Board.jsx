@@ -23,7 +23,7 @@ const Board =()=>{
     'f','c','g','d','a','e','h','f#','c#','a♭','e♭','b'
   ]
   const [showEnd, showEndUpdate] = useState(false);
-  //const [showChord, showEndUpdate] = useState(false);
+  // const [showChord, showEndUpdate] = useState(false);
   const noteKeys = Object.keys(noteObj)
   //const [circleClass, setCircleClass] = useState('circles')
   const [score, scoreUpdate] = useState(0) //() => '0');
@@ -65,6 +65,14 @@ const Board =()=>{
     return;
 
   }
+
+  // handleChange(e) {
+  //   const target = e.target;
+  //   const name = target.name;
+  //   const value = target.value;
+
+  // }
+
   useEffect(()=> {
     if(remaining < 1){
       console.log(noteObj)
