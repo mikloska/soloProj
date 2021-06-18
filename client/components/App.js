@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import Board from "./Board.jsx";
 //import Modal from "./Modal.jsx"
-
+import logo from '../images/logo.png'
+import StartModal from "./StartModal.jsx";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      modal: false,
+      startModal: false,
       name: "",
-      modalInputName: ""
+      modalInputName: "",
+      showStart: true,
+
       
     }
 
@@ -18,7 +21,7 @@ class App extends Component {
     const target = e.target;
     const name = target.name;
     const value = target.value;
-
+    console.log(value)
     this.setState({
       [name]: value
     });
@@ -27,18 +30,8 @@ class App extends Component {
 
   handleSubmit(e) {
     this.setState({ name: this.state.modalInputName });
-    this.modalClose();
-  }
+    this.setState({showStart: false})
 
-  modalOpen() {
-    this.setState({ modal: true });
-  }
-
-  modalClose() {
-    this.setState({
-      modalInputName: "",
-      modal: false
-    });
   }
 
 
@@ -47,9 +40,46 @@ class App extends Component {
    return (
      
       <div id = 'main-container' >
-        <div id = 'header' ><h1 id = 'header-text'>folkFifths</h1></div>
-        {/* <img src = './images/palatkaiak.jpg' usemap="#game-board" id = "fifths-pic" className = 'palatkaiak' /> */}
-        
+        <div id = 'header' >
+        <div><img src = '../images/logo.png' id ='logo' /> <h1 id = 'header-text'>folkFifths</h1></div>
+  
+        </div>
+
+      {this.state.showStart === true ? (
+        <StartModal showStart={this.state.modal} handleClose={e => this.modalClose(e)}>
+          
+          <div className="form-group">
+            <label><h2>Please enter your name:</h2></label>
+            <input
+              type="text"
+              value={this.state.modalInputName}
+              name="modalInputName"
+              onChange={e => this.handleChange(e)}
+              className="form-control"
+            />
+            <button onClick={e => this.handleSubmit(e)} type="button" className = 'modal-buttons'>
+              Submit
+            </button>
+          </div>
+
+        </StartModal>
+       ):(null) }
+
+      {/* {this.state.showEnd === true ? (
+            <div id = 'start-modal' className={showHideClassName}>
+            <div className="modal-container">
+              <div className = 'modal-header-footer'/>
+              <div className = 'modal-body'>
+                <h4>Would you like to play again?</h4>
+              </div>
+              <a href="javascript:;" className="modal-close" onClick={handleClose}>
+                
+              </a>
+              <div className = 'modal-header-footer' id = 'start-modal-footer'></div>
+            </div>
+          </div>
+
+       ):(null) } */}
                    
         <Board/> 
   

@@ -2,11 +2,6 @@ import React, { Component, useState, useEffect } from 'react';
 import {render} from 'react-dom';
 import NoteCircle from "./NoteCircle.jsx";
 
-
-//import '../.././sounds'
-
-
-
 const Board =()=>{
   const [noteObj, noteObjUpdate] = useState({
     FMajor:{clicked:false, note:'F', chord: 'fac'},CMajor:{clicked:false, note:'C', chord: 'ceg'},
@@ -27,7 +22,8 @@ const Board =()=>{
     'F','C','G','D','A','E','H','F#','C#','A♭','E♭','B',
     'f','c','g','d','a','e','h','f#','c#','a♭','e♭','b'
   ]
-
+  const [showEnd, showEndUpdate] = useState(false);
+  //const [showChord, showEndUpdate] = useState(false);
   const noteKeys = Object.keys(noteObj)
   //const [circleClass, setCircleClass] = useState('circles')
   const [score, scoreUpdate] = useState(0) //() => '0');
@@ -50,7 +46,9 @@ const Board =()=>{
       }))
 
       console.log(noteObj)
-      
+
+      //showChordUpdate(true);
+
       const chordPrompt = prompt("Great job! Now please enter the chord! (enter 'b' for flats and '#' for sharps)")
       if(chordPrompt === noteObj[payload].chord){
         scoreUpdate(score+3);
@@ -68,16 +66,10 @@ const Board =()=>{
 
   }
   useEffect(()=> {
-    
-    //console.log(currentPlayer)
     if(remaining < 1){
       console.log(noteObj)
-      let newGame = confirm('Don\'t quit your day job! Play again?');
-      if (newGame === true){
-        //reload the page / restart game
-        window.location.reload();
-        return; //needed to , bc it moved on to player X won after confirming
-      }
+      showEndUpdate(true)
+
     }
   })
 
@@ -99,7 +91,50 @@ const Board =()=>{
 
 
   return(
+
+
+
+
+
+
     <div>
+
+        {showEnd === true ? (
+            <div id = 'modal' >
+            <div className="modal-container">
+              <div className = 'modal-header-footer'/>
+              <div className = 'modal-body'>
+                <h4>Would you like to play again?</h4>
+                <a href="javascript:;" className="modal-close" >
+                <button className = 'modal-buttons' onClick = {()=>window.location.reload()}>Of course!</button>
+              </a>
+              </div>
+
+              <div className = 'modal-header-footer' id = 'start-modal-footer'></div>
+            </div>
+          </div>
+
+       ):(null) }
+
+        {/* {showChord === true ? (
+
+          <div className="form-group">
+          <label><h2>Good job! Now enter the chord! Use b for flats and # for shaprs.</h2></label>
+          <input
+            type="text"
+            value={this.state.modalInputName}
+            name="modalInputName"
+            onChange={e => this.handleChange(e)}
+            className="form-control"
+          />
+          <button onClick={e => this.handleChordSubmit(e)} type="button" className = 'modal-buttons'>
+            Submit
+          </button>
+          </div>
+
+       ):(null) } */}
+
+
       <div id='game-container'>
             {circle}
 
