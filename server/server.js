@@ -1,20 +1,20 @@
-import cors from 'cors';
-import express from 'express';
-import mongoose from 'mongoose'; //either is valid
-import dotenv from 'dotenv'
+// import cors from 'cors';
+const express = require('express')
+// import express from 'express';
+const mongoose = require('mongoose')
+// import mongoose from 'mongoose'; //either is valid
+const dotenv = require('dotenv')
+// const path = require('path')
+// const scoresRouter = require('./routes/scoresRouter');
 
 
 const app = express();
-dotenv.config(); //what is this shit
-app.use(express.static('assets'))
+dotenv.config(); //allows you to use .env files
+// app.use(express.static('assets'))
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(cors);
+// app.use(express.urlencoded({extended:true}));
 
-app.get('/', (req, res) => {
-    res.send
-
-})
+// app.use('api/scores', scoresRouter);
 
 const port = process.env.PORT || 5000;
 //console.log('connection url: ', process.env.CONNECTION_URL)
