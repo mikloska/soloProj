@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 import {render} from 'react-dom';
 import NoteCircle from "./NoteCircle.jsx";
+import axios from 'axios';
 
 const Board =(props)=>{
 
@@ -25,6 +26,7 @@ const Board =(props)=>{
     'F','C','G','D','A','E','H','F#','C#','A♭','E♭','B',
     'f','c','g','d','a','e','h','f#','c#','a♭','e♭','b'
   ]
+  const [topFive, setTopFive] = useState([]);
   const [showEnd, showEndUpdate] = useState(false);
   // const [showChord, showEndUpdate] = useState(false);
   const noteKeys = Object.keys(noteObj)
@@ -75,12 +77,44 @@ const Board =(props)=>{
   //   const value = target.value;
 
   // }
+  useEffect(() => {
+    axios.get('/highScores')
+      .then((res)=> {
+        const pulledScores = res.data;
+        pulledScores.sort((a,b) => (a.score > b.score)? -1 : 1);
+        setTopFive(pulledScores.slice(0,4));
+
+      })
+      .catch(err => console.log(`Error: ${err}`))
+  },[])
+  
 
   useEffect(()=> {
     if(remaining < 1){
-      console.log(name)
-      console.log(score)
+      // console.log(name)
+      // console.log(score)
+
+      axios({
+        method: 'post',
+        url: '/addScore',
+        data: {
+          name: name,
+          score: score
+        }
+      });
+
+
+
+    //   axios.post('/addScore',
+    //  { name: name, score: score })
+    //   .then(res => {
+    //     if (res.status === 200){
+    //       setSubmitted(true)
+    //     }
+    //   })
+
       showEndUpdate(true)
+
 
     }
   })
@@ -155,6 +189,7 @@ const Board =(props)=>{
       </div>
       <div id = 'top-scores'>
         <div id = 'top-scores-text'>Top Scores: </div>
+        <div>{topFive}</div>
       </div>
       {/* <button>Randomize</button> */}
     </div>
