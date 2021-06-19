@@ -21,7 +21,7 @@ class App extends Component {
     const target = e.target;
     const name = target.name;
     const value = target.value;
-    console.log(value)
+    //console.log(value)
     this.setState({
       [name]: value
     });

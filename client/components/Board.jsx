@@ -16,7 +16,7 @@ const Board =(props)=>{
     EFlatMajor:{clicked:false,note:'E♭',chord:'ebgb'},BMajor:{clicked:false,note:'B',chord:'bdf'},
     fMinor:{clicked:false, note:'f',chord:'fg#c'},cMinor:{clicked:false, note:'c',chord:'cebg'},
     gMinor:{clicked:false, note:'g',chord:'gbd'},dMinor:{clicked:false, note:'d',chord:'dfa'},
-    aMinor:{clicked:false, note:'a',chord:'ace'},eMinor:{clicked:false, note:'e',chord:'egd'},
+    aMinor:{clicked:false, note:'a',chord:'ace'},eMinor:{clicked:false, note:'e',chord:'egh'},
     hMinor:{clicked:false, note:'h',chord:'hdf#'},fSharpMinor:{clicked:false, note:'f#',chord:'f#ac#'},
     cSharpMinor:{clicked:false, note:'c#',chord:'c#eg#'},aFlatMinor:{clicked:false, note:'a♭',chord:'abheb'},
     eFlatMinor:{clicked:false, note:'e♭',chord:'ebf#b'},bMinor:{clicked:false, note:'b',chord:'bc#f'}
@@ -28,19 +28,32 @@ const Board =(props)=>{
   ]
   const [topFive, setTopFive] = useState([]);
   const [showEnd, showEndUpdate] = useState(false);
-  // const [showChord, showEndUpdate] = useState(false);
+  const [showChord, showChordUpdate] = useState(false);
   const noteKeys = Object.keys(noteObj)
   //const [circleClass, setCircleClass] = useState('circles')
   const [score, scoreUpdate] = useState(0) //() => '0');
   const [remaining, remainingUpdate] = useState(5) //() => '0');
   const [note, noteUpdate] = useState(noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]].note)  //noteArray[Math.floor(Math.random()*noteArray.length)]
-  const bad = new Audio('https://solosounds.s3.us-east-2.amazonaws.com/Bad.m4a')
+  const bad = new Audio('https://solosounds.s3.us-east-2.amazonaws.com/Bad.m4a');
+  //const [chordSubmitted, setChordSubmitted] = useState(false);
+  const [chordModalInput, setChordModal]=useState('');
+  const [chordName, chordNameUpdate] = useState('');
+  const [currChord, setCurrChord] = useState('ljkl');
+
+
 
   function handleOnClick(payload) {
-    
-    if(noteObj[payload].note !== note) bad.play()
+    setCurrChord(noteObj[payload].chord);
+    console.log(currChord)
+    if(noteObj[payload].note !== note){
+      bad.play();
+      remainingUpdate(remaining-1);
+      return;
+    } 
     if(noteObj[payload].note === note){
+      scoreUpdate(score+1);
       let noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
+      console.log(noteObj)
       while(noteToUpdate.clicked === true){
         noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
       }
@@ -50,33 +63,59 @@ const Board =(props)=>{
         [payload]: {...oldBoard[payload], clicked: true}, 
       }))
 
-      console.log(noteObj)
+      
 
-      //showChordUpdate(true);
+      showChordUpdate(true);
 
-      const chordPrompt = prompt("Great job! Now please enter the chord! (enter 'b' for flats and '#' for sharps)")
-      if(chordPrompt === noteObj[payload].chord){
-        scoreUpdate(score+3);
-        return;
-      }else{
-        scoreUpdate(score+1);
-        remainingUpdate(remaining-1);
-        return;
-      }
+      //console.log('chord name before conditional:', chordName)
+      //const chordPrompt = prompt("Great job! Now please enter the chord! (enter 'b' for flats and '#' for sharps)")
+
 
       
     }
-    remainingUpdate(remaining-1);
-    return;
+    
+    
 
   }
 
-  // handleChange(e) {
-  //   const target = e.target;
-  //   const name = target.name;
-  //   const value = target.value;
+  // useEffect(() => {
+  //   console.log('chordName: ',chordName, 'currChord',currChord, )
+  //   if(chordName === currChord){
+  //     scoreUpdate(score+3);
+  //     return;
+  //   }
 
-  // }
+  // },[chordSubmitted])
+
+
+  function handleChordChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    //console.log(value);
+    chordNameUpdate(value);
+    //console.log('chordName: ',chordName)
+
+  }
+
+  async function handleChordSubmit(e) {
+    await setChordModal(chordName);
+    //setChordSubmitted(true)
+    //console.log('handleChordSubmit: ',chordName)
+    if(chordName === currChord){
+      scoreUpdate(score+3);
+    }else {
+      remainingUpdate(remaining-1);
+    } 
+     
+    showChordUpdate(false);
+
+
+  }
+
+
+
+  
   useEffect(() => {
     axios.get('/highScores')
       .then((res)=> {
@@ -157,23 +196,35 @@ const Board =(props)=>{
 
        ):(null) }
 
-        {/* {showChord === true ? (
+        {showChord === true ? (
 
-          <div className="form-group">
-          <label><h2>Good job! Now enter the chord! Use b for flats and # for shaprs.</h2></label>
-          <input
-            type="text"
-            value={this.state.modalInputName}
-            name="modalInputName"
-            onChange={e => this.handleChange(e)}
-            className="form-control"
-          />
-          <button onClick={e => this.handleChordSubmit(e)} type="button" className = 'modal-buttons'>
-            Submit
-          </button>
+        <div id = 'modal' >
+        <div className="modal-container">
+          <div className = 'modal-header-footer'/>
+          <div className = 'modal-body'>
+            <h4>Good job! Now enter the chord! Use b for flats and # for shaprs.</h4>
+            <a href="javascript:;" className="modal-close" >
+            <input
+              type="text"
+              //value={this.state.modalInputName}
+              name="modalInputName"
+              onChange={e => handleChordChange(e)}
+              className="form-control"
+            />
+            <button  type="button" className = 'modal-buttons' onClick={handleChordSubmit}>  
+            
+              Submit
+            </button>
+          </a>
           </div>
 
-       ):(null) } */}
+          <div className = 'modal-header-footer' id = 'start-modal-footer'></div>
+        </div>
+        </div>
+
+
+
+        ):(null) }
 
 
       <div id='game-container'>
