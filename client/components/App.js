@@ -81,7 +81,7 @@ class App extends Component {
 
        ):(null) } */}
                    
-        <Board/> 
+        <Board name = {this.state.name}/> 
   
      
         <div>

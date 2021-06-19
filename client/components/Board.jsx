@@ -2,7 +2,10 @@ import React, { Component, useState, useEffect } from 'react';
 import {render} from 'react-dom';
 import NoteCircle from "./NoteCircle.jsx";
 
-const Board =()=>{
+const Board =(props)=>{
+
+  const{name} = props;
+
   const [noteObj, noteObjUpdate] = useState({
     FMajor:{clicked:false, note:'F', chord: 'fac'},CMajor:{clicked:false, note:'C', chord: 'ceg'},
     GMajor:{clicked:false,note:'G',chord:'ghd'},DMajor:{clicked:false,note:'D',chord:'df#a'},
@@ -75,7 +78,8 @@ const Board =()=>{
 
   useEffect(()=> {
     if(remaining < 1){
-      console.log(noteObj)
+      console.log(name)
+      console.log(score)
       showEndUpdate(true)
 
     }
@@ -99,11 +103,6 @@ const Board =()=>{
 
 
   return(
-
-
-
-
-
 
     <div>
 
