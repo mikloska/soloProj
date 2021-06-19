@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 // import mongoose from 'mongoose'; //either is valid
 const dotenv = require('dotenv')
 // const path = require('path')
-// const scoresRouter = require('./routes/scoresRouter');
+const scoresRouter = require('./routes/scoresRouter');
 
 
 const app = express();
@@ -13,8 +13,12 @@ dotenv.config(); //allows you to use .env files
 // app.use(express.static('assets'))
 app.use(express.json());
 // app.use(express.urlencoded({extended:true}));
-
-// app.use('api/scores', scoresRouter);
+app.get('/', 
+  (req, res) => {
+    res.status(200).send('Work already!!!!!')
+  }
+)
+app.use('api/scores', scoresRouter);
 
 const port = process.env.PORT || 5000;
 //console.log('connection url: ', process.env.CONNECTION_URL)
