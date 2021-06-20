@@ -1,24 +1,46 @@
-// import cors from 'cors';
 const express = require('express')
-// import express from 'express';
 const mongoose = require('mongoose')
-// import mongoose from 'mongoose'; //either is valid
 const dotenv = require('dotenv')
-// const path = require('path')
 const scoresRouter = require('./routes/scoresRouter');
+//const {User} = require('./models/userModel')
 
+const userSchema = new mongoose.Schema({
+  name: {type: String, required: true},
+  score: Number
+})
+
+const User = mongoose.model('User', userSchema);
 
 const app = express();
-dotenv.config(); //allows you to use .env files
-// app.use(express.static('assets'))
+dotenv.config();
 app.use(express.json());
 // app.use(express.urlencoded({extended:true}));
+//app.use('/api/scores', scoresRouter);
+
+app.get('/scores/highscores', (req,res) => {
+  User.find({}, function(err,users){
+    res.send(users)
+  })
+})
+
+app.post('/scores/addscore', async (req,res) => {
+  const entry = new User(req.body);
+  
+  try {
+    await entry.save();
+    res.send(entry);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+
 app.get('/', 
   (req, res) => {
     res.status(200).send('Work already!!!!!')
   }
 )
-app.use('api/scores', scoresRouter);
+
 
 const port = process.env.PORT || 5000;
 //console.log('connection url: ', process.env.CONNECTION_URL)

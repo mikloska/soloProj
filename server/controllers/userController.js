@@ -4,9 +4,11 @@ const userController = {}
 
 userController.getUsers = (req, res, next) => {
   console.log('in getUser middleware')
+  const {id} = res
     User.find({})
     .then((data, err) => {
-      res.locals.topFive = data;
+        res.locals = data;
+      // res.locals.topFive = data;
       console.log(data);
       return next();
     })
@@ -15,15 +17,25 @@ userController.getUsers = (req, res, next) => {
 }
 
 
-userController.addScore = (req, res, next) => {
-  const { score, name } = req.body;
-  console.log('in addScore')
-  const entry = {name, score}
+// userController.addScore = (req, res, next) => {
+//   const { score, name } = req.body;
+//   console.log('in addScore')
+//   const entry = {name, score}
 
-  User.create([{name, score }])
-    .then(next())
-    .catch(err=>console.log(err))
-};
+//   User.create({name, score })
+//     .then(next())
+//     .catch(err=>console.log(err))
+// };
+
+userController.addScore = (req, res, next) => {
+  const entry = new User(req.body);
+
+  entry.save()
+  .then(next())
+  .catch(err=>console.log(err))
+  };
+  
+
 
 
 module.exports = userController;
