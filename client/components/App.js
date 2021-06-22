@@ -51,6 +51,7 @@ class App extends Component {
           <div className="form-group">
             <label><h2>Please enter your name:</h2></label>
             <input
+              autoComplete="off"
               type="text"
               value={this.state.modalInputName}
               name="modalInputName"

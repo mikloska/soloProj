@@ -2,6 +2,8 @@ import React, { Component, useState, useEffect } from 'react';
 import {render} from 'react-dom';
 import NoteCircle from "./NoteCircle.jsx";
 import axios from 'axios';
+import TopScores from "./TopScores.jsx"
+import fetch from 'node-fetch'
 
 const Board =(props)=>{
 
@@ -26,7 +28,7 @@ const Board =(props)=>{
     'F','C','G','D','A','E','H','F#','C#','A♭','E♭','B',
     'f','c','g','d','a','e','h','f#','c#','a♭','e♭','b'
   ]
-  const [topFive, setTopFive] = useState([]);
+  const [topFive, setTopFive] = useState();
   const [showEnd, showEndUpdate] = useState(false);
   const [showChord, showChordUpdate] = useState(false);
   const noteKeys = Object.keys(noteObj)
@@ -44,7 +46,7 @@ const Board =(props)=>{
 
   function handleOnClick(payload) {
     setCurrChord(noteObj[payload].chord);
-    console.log(currChord)
+    //console.log(currChord)
     if(noteObj[payload].note !== note){
       bad.play();
       remainingUpdate(remaining-1);
@@ -53,7 +55,7 @@ const Board =(props)=>{
     if(noteObj[payload].note === note){
       scoreUpdate(score+1);
       let noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
-      console.log(noteObj)
+      //console.log(noteObj)
       while(noteToUpdate.clicked === true){
         noteToUpdate = noteObj[noteKeys[Math.floor(Math.random()*noteKeys.length)]]
       }
@@ -117,46 +119,116 @@ const Board =(props)=>{
 
   
   useEffect(() => {
-    axios.get('/highScores')
-      .then((res)=> {
-        const pulledScores = res.data;
-        pulledScores.sort((a,b) => (a.score > b.score)? -1 : 1);
-        setTopFive(pulledScores.slice(0,4));
+    
+    fetch('http://localhost:5000/scores/highscores')
+    .then(response => response.json())    // one extra step
+    .then(data => {
+      
+      data.sort((a,b) => b.score - a.score)
+      setTopFive(data);
 
+    })
+
+    .catch(err => console.log(`Error: ${err}`))
+  
+  },[])
+
+  function finishClick(){
+    axios.post('http://localhost:5000/scores/addscore',
+    { name: name, score: score})
+     .then(res => {
+       if (res.status === 200){
+         console.log('sent ',res)
+         //setSubmitted(true)
+       }
+     })
+    window.location.reload()
+  }
+
+  function handleDelete(){
+    const deleted = topFive[0].name;
+    console.log(deleted)
+    axios.delete('http://localhost:5000/scores/deleteuser',
+    {data:{name: deleted}})
+      .then((res)=>{
+        if (res.status === 200){
+          console.log('sent ',res)
+ 
+        }
       })
       .catch(err => console.log(`Error: ${err}`))
-  },[])
-  
+
+          fetch('http://localhost:5000/scores/highscores')
+    .then(response => response.json())    // one extra step
+    .then(data => {
+      
+      data.sort((a,b) => b.score - a.score)
+      setTopFive(data);
+
+    })
+
+    .catch(err => console.log(`Error: ${err}`))
+    
+
+  }
 
   useEffect(()=> {
-    if(remaining < 1){
-      // console.log(name)
-      // console.log(score)
 
-      axios({
-        method: 'post',
-        url: '/addScore',
-        data: {
-          name: name,
-          score: score
-        }
-      });
-
-
-
-    //   axios.post('/addScore',
-    //  { name: name, score: score })
-    //   .then(res => {
-    //     if (res.status === 200){
-    //       setSubmitted(true)
-    //     }
-    //   })
-
+    if(remaining === 0){
       showEndUpdate(true)
+      //sendScore()
+
+      const newScore = {
+        name:name,
+        score:score
+      }
+      // axios.post('http://localhost:5000/scores/addscore',
+      // { name: name, score: score})
+      //  .then(res => {
+      //    if (res.status === 200){
+      //      console.log('sent ',res)
+      //      //setSubmitted(true)
+      //    }
+      //  })
+      // fetch('http://localhost:5000/scores/addscore', {
+      //   method: 'POST',
+      //   body: JSON.stringify(newScore),
+      //   headers: { "Content-Type": "application/json" }
+      // }).then(res => res.json())
+      // .then(json => console.log(json));
+      // return;
 
 
     }
+    
   })
+
+  // function sendScore(){
+  //   let newScore = {
+  //     name:name,
+  //     score:score
+  //   }
+  //   fetch('http://localhost:5000/scores/addscore', {
+  //     method: 'POST',
+  //     body: JSON.stringify(newScore),
+  //     headers: { 'Content-Type': 'application/json' }
+  //   }).then(res => res.json())
+  //   .then(json => console.log(json));
+  //   return;
+  // }
+  // const topScoresChart = []
+
+  // for(let i = 0; i< 4; i++){
+  //   topScoresChart.push(
+  //     <TopScores
+  //       name = {topFive[i].name}
+  //       score = {topFive[i].score}      
+  //     >
+
+
+  //     </TopScores>
+  //   )
+  // }
 
   const circle = []
   for(let i = 0; i< noteKeys.length; i++){
@@ -164,7 +236,7 @@ const Board =(props)=>{
         <NoteCircle 
  
           clicked = {noteObj[noteKeys[i]].clicked}
-          key = {i}
+          key = {i} 
           handleOnClick = {handleOnClick}
           id = {noteKeys[i]}
           text = {noteObj[noteKeys[i]].note}
@@ -172,7 +244,7 @@ const Board =(props)=>{
 
         </NoteCircle>)
   }
-
+    
 
 
   return(
@@ -186,7 +258,7 @@ const Board =(props)=>{
               <div className = 'modal-body'>
                 <h4>Would you like to play again?</h4>
                 <a href="javascript:;" className="modal-close" >
-                <button className = 'modal-buttons' onClick = {()=>window.location.reload()}>Of course!</button>
+                <button className = 'modal-buttons' onClick = {finishClick}>Of course!</button>
               </a>
               </div>
 
@@ -202,10 +274,10 @@ const Board =(props)=>{
         <div className="modal-container">
           <div className = 'modal-header-footer'/>
           <div className = 'modal-body'>
-            <h4>Good job! Now enter the chord! Use b for flats and # for shaprs.</h4>
+            <h4>Good job! Now enter the chord! Use b for flats and # for sharps.</h4>
             <a href="javascript:;" className="modal-close" >
             <input
-              type="text"
+              type="text" autoComplete="off"
               //value={this.state.modalInputName}
               name="modalInputName"
               onChange={e => handleChordChange(e)}
@@ -235,14 +307,17 @@ const Board =(props)=>{
       </div>
       
       <div id = 'score-and-remaining'>
-        <div id = 'score-remaining-text'>Score: {score}</div>
-        <div id = 'score-remaining-text'>Remaining Tries: {remaining}</div>
+        <div className = 'score-remaining-text'>Score: {score}</div>
+        <div className = 'score-remaining-text'>Remaining Tries: {remaining}</div>
       </div>
       <div id = 'top-scores'>
         <div id = 'top-scores-text'>Top Scores: </div>
-        <div>{topFive}</div>
-      </div>
-      {/* <button>Randomize</button> */}
+
+          {topFive && <TopScores topFive = {topFive}/>}
+
+          <button className = 'modal-buttons' id = 'delete-button' onClick = {handleDelete}>Delete top score!</button>
+      </div> 
+      
     </div>
   );
 

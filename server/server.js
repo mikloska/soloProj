@@ -2,16 +2,17 @@ const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const scoresRouter = require('./routes/scoresRouter');
-//const {User} = require('./models/userModel')
-
-const userSchema = new mongoose.Schema({
-  name: {type: String, required: true},
-  score: Number
-})
-
-const User = mongoose.model('User', userSchema);
-
 const app = express();
+//const models = require('./models/userModel')
+const User = require('./models/userModel')
+const cors = require('cors')
+app.use(cors())
+app.use(express.urlencoded({ extended: true }));
+
+
+
+
+
 dotenv.config();
 app.use(express.json());
 // app.use(express.urlencoded({extended:true}));
@@ -23,21 +24,29 @@ app.get('/scores/highscores', (req,res) => {
   })
 })
 
-app.post('/scores/addscore', async (req,res) => {
-  const entry = new User(req.body);
-  
-  try {
-    await entry.save();
-    res.send(entry);
-  } catch (error) {
-    res.status(500).send(error);
-  }
+
+
+app.post('/scores/addscore', (req,res) => {
+  const {name,score} = req.body;
+  User.create({name,score}, (err, user)=> {
+    return res.status(200).json(user);
+  }) 
+
 });
 
 
 app.get('/', 
   (req, res) => {
     res.status(200).send('Work already!!!!!')
+  }
+)
+
+app.delete('/scores/deleteuser',
+  (req,res) => {
+    const {name : name} = req.body;
+    User.findOneAndDelete({name}, (err,deletedUser) => {
+      return res.status(200).json(deletedUser);
+    })
   }
 )
 
